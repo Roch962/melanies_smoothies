@@ -29,9 +29,13 @@ ingredients_list = st.multiselect(
 
 # Display Selected Fruits and Nutrition Info
 if ingredients_list:
-    # Create a clean ingredients string with no duplicates
-    unique_ingredients = list(set(ingredients_list))
-    ingredients_string = ", ".join(unique_ingredients)
+    # Remove duplicates and convert to title case for consistency
+    unique_ingredients = list(set(ingredients_list))  # Remove duplicates
+    ingredients_string = ", ".join([ingredient.title() for ingredient in unique_ingredients])  # Title case
+
+    # Display the selected ingredients
+    st.subheader("You selected the following ingredients:")
+    st.write(ingredients_string)
 
     # Loop through each selected fruit and display SEARCH_ON and Nutrition Info
     st.subheader("Nutrition Information for Selected Fruits:")
@@ -40,16 +44,16 @@ if ingredients_list:
         search_on_value = pd_df.loc[pd_df['FRUIT_NAME'] == fruit_chosen, 'SEARCH_ON'].iloc[0]
 
         # Display the search value sentence
-        st.write(f"The search value for **{fruit_chosen}** is **{search_on_value}**.")
+        st.write(f"The search value for **{fruit_chosen.title()}** is **{search_on_value}**.")
 
         # Mocked API Call for Nutrition Information (adjust if API is available)
         nutrition_response = requests.get(f"https://my.smoothiefroot.com/api/fruit/{search_on_value}")
         if nutrition_response.status_code == 200:
             nutrition_data = nutrition_response.json()
-            st.write(f"**{fruit_chosen} Nutrition Information:**")
+            st.write(f"**{fruit_chosen.title()} Nutrition Information:**")
             st.dataframe(nutrition_data, use_container_width=True)
         else:
-            st.write(f"Could not retrieve data for {fruit_chosen}.")
+            st.write(f"Could not retrieve data for {fruit_chosen.title()}.")
 
     # Display SQL Insert Statement
     my_insert_stmt = f"""
