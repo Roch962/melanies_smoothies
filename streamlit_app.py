@@ -8,7 +8,7 @@ st.write("Choose the fruits you want in your smoothie!")
 
 name_on_order = st.text_input('Name on Smoothie:')
 st.write('The name on your smoothie will be', name_on_order)
-fruit_list = [row['FRUIT_NAME'] for row in my_dataframe.collect()]
+
 
 cnx = st.connection("snowflake")
 session = cnx.session()
@@ -19,7 +19,7 @@ my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT
 pd_df=my_dataframe.to_pandas()
 st.dataframe(pd_df)
 st.stop()
-
+fruit_list = [row['FRUIT_NAME'] for row in my_dataframe.collect()]
 
 
 # Multiselect for ingredients
