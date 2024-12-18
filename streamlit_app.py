@@ -22,9 +22,9 @@ ingredients_list = st.multiselect(
 
 if ingredients_list:
     ingredients_string = ', '.join(ingredients_list)  # Concatenate selected ingredients into a string
-    st.subheader(fruit_chosen + 'Nutrition Information')
-    smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + fruit_chosen)
-    sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
+        st.subheader(fruit_chosen + 'Nutrition Information')
+        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + fruit_chosen)
+        sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
     # Create the SQL insert statement
     my_insert_stmt = (
         "INSERT INTO smoothies.public.orders (ingredients, name_on_order) "
