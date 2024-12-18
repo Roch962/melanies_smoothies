@@ -14,6 +14,10 @@ st.write('The name on your smoothie will be', name_on_order)
 cnx = st.connection("snowflake")
 session = cnx.session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'),col('SEARCH_ON'))
+st.subheader("Fruit Options Table")
+st.dataframe(data=mydataframe,use_cntainer_width=True)
+
+st.stop()
 fruit_list = [row['FRUIT_NAME'] for row in my_dataframe.collect()]
 
 
@@ -46,7 +50,6 @@ if ingredients_list:
         session.sql(my_insert_stmt).collect()
         st.success(f"Your Smoothie is ordered, {name_on_order}!", icon="✅")
 
-import requests
 
 # st.text(smoothiefroot_response.json())
 
