@@ -13,9 +13,8 @@ st.write('The name on your smoothie will be', name_on_order)
 # Get the active session and query the table
 cnx = st.connection("snowflake")
 session = cnx.session()
-fruit_list = [row['FRUIT_NAME'] for row in my_dataframe.collect()]
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'),col('SEARCH_ON'))
-st.stop()
+fruit_list = [row['FRUIT_NAME'] for row in my_dataframe.collect()]
 
 
 # Multiselect for ingredients
