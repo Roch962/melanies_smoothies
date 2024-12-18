@@ -10,7 +10,7 @@ name_on_order = st.text_input('Name on Smoothie:')
 st.write('The name on your smoothie will be', name_on_order)
 
 # Get the active session and query the table
-session = get_active_session()
+session = cnx.session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
 fruit_list = [row['FRUIT_NAME'] for row in my_dataframe.collect()]
 
